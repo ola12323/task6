@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        .btn {
+            margin-bottom: 5px;
+            min-width: 128px;
+        }
+        .col-auto {
+            margin: 0 !important;
+            padding: 0 !important;
+            margin-bottom:  10px !important;
+        }
+        #sliderInput{
+            width:  78px !important;
+        }
+        .container_custom{
+            max-width: 92%;
+            margin:  0 auto;
+        }
+
+                                                           .button-24 {
+                                                               background: #FF4742;
+                                                               border: 1px solid #FF4742;
+                                                               border-radius: 6px;
+                                                               box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+                                                               box-sizing: border-box;
+                                                               color: #FFFFFF;
+                                                               cursor: pointer;
+                                                               display: inline-block;
+                                                               font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+                                                               font-size: 16px;
+                                                               font-weight: 800;
+                                                               line-height: 16px;
+                                                               min-height: 40px;
+                                                               outline: 0;
+                                                               padding: 12px 14px;
+                                                               text-align: center;
+                                                               text-rendering: geometricprecision;
+                                                               text-transform: none;
+                                                               user-select: none;
+                                                               -webkit-user-select: none;
+                                                               touch-action: manipulation;
+                                                               vertical-align: middle;
+                                                           }
+
+        .button-24:hover,
+        .button-24:active {
+            background-color: initial;
+            background-position: 0 0;
+            color: #FF4742;
+        }
+
+        .button-24:active {
+            opacity: .5;
+        }
+
+        .button-25 {
+            background: green;
+            border: 1px solid green;
+            border-radius: 6px;
+            box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 16px;
+            min-height: 40px;
+            outline: 0;
+            padding: 12px 14px;
+            text-align: center;
+            text-rendering: geometricprecision;
+            text-transform: none;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            vertical-align: middle;
+        }
+
+        .button-25:hover,
+        .button-25:active {
+            background-color: initial;
+            background-position: 0 0;
+            color: green;
+        }
+
+        .button-25:active {
+            opacity: .5;
+        }
+        .button-26 {
+            background: cornflowerblue;
+            border: 1px solid cornflowerblue;
+            border-radius: 6px;
+            box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 16px;
+            min-height: 40px;
+            outline: 0;
+            padding: 12px 14px;
+            text-align: center;
+            text-rendering: geometricprecision;
+            text-transform: none;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            vertical-align: middle;
+        }
+
+        .button-26:hover,
+        .button-26:active {
+            background-color: initial;
+            background-position: 0 0;
+            color: cornflowerblue;
+        }
+
+        .button-26:active {
+            opacity: .5;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body class="container_custom">
+<div>
+    <div class="main">
+        <div class="col-auto my-1 col-md-4">
+            <label class="mr-sm-2" for="regionId">Select region: </label>
+            <select id="regionId" name="selectedRegion" class="custom-select mr-sm-2"
+                    aria-label="Default select example">
+                <option value="pl">Poland</option>
+                <option value="ru">Russia</option>
+                <option value="de" selected>Germany</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <label for="slider">Error per record: </label>
+            <input id="slider" type="range" step="0.5" name="errorPerRecord1" value="0" min="0" max="10">
+            <input class="w-25" id="sliderInput" type="text" value="0" name="errorPerRecord"><br><br>
+        </div>
+    </div>
+    <div class="">
+
+            <input type="text" id="seedNumber" value="" name="seedNumber"><br><br>
+            <button class="button-24" id="generateSeed">Generate seed</button>
+
+            <button class="button-25" id="loadData">Load</button>
+            <button onclick="downloadData()" class="button-26">Export</button>
+</div>
+<div>
+    <br>
+    <div class="generatedDataTable" style="overflow: auto; height: 500px">
+        <table class="table" id="tableId">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Identifier</th>
+                <th scope="col">Full name</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone number</th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+<script>
+
+    function appendUser(user) {
+        $("#tableBody").append(
+            "<tr>" +
+            "<th scope='row'>" + user.orderNum + "</th>" +
+            "<td>" + user.identifier + "</td>" +
+            "<td>" + user.fullName + "</td>" +
+            "<td>" + user.address + "</td>" +
+            "<td>" + user.phoneNumber + "</td>" +
+            "</tr>"
+        )
+    }
+
+
+    function generate20Data() {
+
+        $('.generatedDataTable').animate({scrollTop: 0}, 0);
+
+        var selectedRegion = document.getElementById("regionId").value;
+        var errorPerRecord = document.getElementById("sliderInput").value;
+        var seedNumber = document.getElementById("seedNumber").value;
+
+        fetch('/api/generateNextData?' + new URLSearchParams({
+            selectedRegion: selectedRegion,
+            errorPerRecord: errorPerRecord,
+            seedNumber: seedNumber
+        })).then(function (response) {
+            if (response.ok) {
+                response.json().then(res => {
+                    $("#tableBody").empty();
+                    res.map(user => {
+                        appendUser(user);
+                    })
+                })
+            }
+        });
+    }
+
+    jQuery(function ($) {
+        $('.generatedDataTable').on('scroll', function () {
+            if ($(this).scrollTop() +
+                $(this).innerHeight() >=
+                $(this)[0].scrollHeight-1) {
+                generate10Data();
+            }
+        });
+    });
+
+
+    function generate10Data() {
+        var selectedRegion = document.getElementById("regionId").value;
+        var seedNumber = document.getElementById("seedNumber").value;
+        var errorPerRecord = document.getElementById("sliderInput").value;
+        var usersLength = $('#tableId tr').length;
+
+
+        console.log()
+        fetch('/api/generateNextData?' + new URLSearchParams({
+            dataLength: usersLength,
+            selectedRegion: selectedRegion,
+            errorPerRecord: errorPerRecord,
+            seedNumber: seedNumber
+        })).then(function (response) {
+            if (response.ok) {
+                response.json().then(res => {
+                    res.map(user => {
+                        appendUser(user);
+                    })
+                })
+            }
+        });
+
+    }
+
+
+    function sliderErrorsSettings() {
+
+        let slider = document.getElementById("slider");
+        let sliderInput = document.getElementById("sliderInput");
+        slider.addEventListener('input', function () {
+            sliderInput.value = this.value;
+        });
+        sliderInput.addEventListener('input', function () {
+            slider.value = this.value;
+            if (this.value === '') slider.value = 0;
+        });
+
+    }
+
+    sliderErrorsSettings();
+
+    function downloadData() {
+        exportTableToCSV('data.csv', ',');
+    }
+
+    function downloadCSV(csv, filename) {
+        let csvFile;
+        let downloadLink;
+
+        csvFile = new Blob([csv], {type: 'text/csv'});
+
+        downloadLink = document.createElement('a');
+
+        downloadLink.download = filename;
+
+        downloadLink.href = URL.createObjectURL(csvFile);
+
+        downloadLink.style.display = "none";
+
+        document.body.appendChild(downloadLink);
+
+        downloadLink.click();
+    }
+
+    function exportTableToCSV(filename, separator) {
+        const csv = [];
+        const rows = document.querySelectorAll("table tr");
+
+        for (let i = 0; i < rows.length; i++) {
+
+            let row = [];
+
+            const cols = rows[i].querySelectorAll("td, th");
+
+            for (let j = 0; j < cols.length; j++)
+                row.push(`"${cols[j].innerText}"`);
+
+            csv.push(row.join(separator));
+        }
+
+        downloadCSV(csv.join("\n"), filename);
+    }
+
+    let seed = getRandomInt();
+
+    function getRandomInt() {
+        return Math.floor(Math.random() * (9999999 - 10000)) + 10000;
+    }
+
+    document.querySelector('#tableBody').innerHTML = '';
+    document.querySelector('#seedNumber').value = seed;
+
+
+    const generateSeedButton = document.querySelector('#generateSeed')
+    generateSeedButton.addEventListener('click', () => {
+        // document.querySelector('#tableBody').innerHTML = '';
+        $("#tableBody").empty();
+        let seed = getRandomInt();
+        document.querySelector('#seedNumber').value = seed;
+        setTimeout( () => {
+            generate20Data();
+        }, 500)
+    });
+    const generateLoadButton = document.querySelector('#loadData')
+    generateLoadButton.addEventListener('click', () => {
+        // document.querySelector('#tableBody').innerHTML = '';
+        $("#tableBody").empty();
+        setTimeout( () => {
+            generate20Data();
+        }, 500)
+    });
+    const generateWithCountry = document.querySelector('#regionId')
+    generateWithCountry.addEventListener('change', () => {
+        // document.querySelector('#tableBody').innerHTML = '';
+        $("#tableBody").empty();
+        setTimeout( () => {
+            generate20Data();
+        }, 500)
+    });
+
+</script>
+</html>
